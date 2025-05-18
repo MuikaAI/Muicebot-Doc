@@ -1,0 +1,32 @@
+[
+    {
+        "type": "file",
+        "name": "introduction",
+        "label": "介绍"
+    },
+    {
+        "type": "file",
+        "name": "setup",
+        "label": "快速安装"
+    },
+    {
+        "type": "file",
+        "name": "configuration",
+        "label": "配置文件"
+    },
+    {
+        "type": "file",
+        "name": "command",
+        "label": "指令说明"
+    },
+    {
+        "type": "file",
+        "name": "QA",
+        "label": "疑难解答"
+    },
+    {
+        "type": "file",
+        "name": "migrations",
+        "label": "从 Chatbot 中迁移"
+    }
+]

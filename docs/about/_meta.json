@@ -1,0 +1,12 @@
+[
+    {
+        "type": "file",
+        "name": "index",
+        "label": "关于"
+    },
+    {
+        "type": "file",
+        "name": "Muice",
+        "label": "关于沐雪"
+    }
+]

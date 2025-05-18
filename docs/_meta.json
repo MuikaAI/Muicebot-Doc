@@ -1,0 +1,27 @@
+[
+  {
+    "text": "首页",
+    "link": "/index",
+    "activeMatch": "/index"
+  },
+  {
+    "text": "使用",
+    "link": "/guide/setup",
+    "activeMatch": "/guide/"
+  },
+  {
+    "text": "模型",
+    "link": "/model/info",
+    "activeMatch": "/model/"
+  },
+  {
+    "text": "开发",
+    "link": "/develop/plugin",
+    "activeMatch": "/develop/"
+  },
+  {
+    "text": "关于",
+    "link": "/about/",
+    "activeMatch": "/about/"
+  }
+]

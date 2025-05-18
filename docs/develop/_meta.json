@@ -1,0 +1,12 @@
+[
+    {
+        "type": "file",
+        "name": "template",
+        "label": "撰写 Muicebot 人设模板"
+    },
+    {
+        "type": "file",
+        "name": "plugin",
+        "label": "开发 Muicebot 插件"
+    }
+]

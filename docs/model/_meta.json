@@ -1,0 +1,17 @@
+[
+    {
+        "type": "file",
+        "name": "info",
+        "label": "模型加载器信息"
+    },
+    {
+        "type": "file",
+        "name": "configuration",
+        "label": "模型加载器配置"
+    },
+    {
+        "type": "file",
+        "name": "evaluate",
+        "label": "沐雪系列模型评测标准"
+    }
+]
