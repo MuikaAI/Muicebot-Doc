@@ -1,12 +1,12 @@
 # 快速开始💻
 
-本节及后续文档默认您有独立搭建过 Nonebot 服务的相关经验。
+本指南将指导您在现有的 NoneBot 项目中快速集成本 Bot 服务。
 
 建议环境：
 
 - Python 3.10 及以上 Python 版本
 
-- 一个已经存在的 Nonebot 项目，参见： [快速上手 | Nonebot](https://nonebot.dev/docs/quick-start#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE)
+- 一个已经存在的 Nonebot 项目。如需新建项目，请参考: [快速上手 | Nonebot](https://nonebot.dev/docs/quick-start#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE)
 
 
 ## 安装插件⚙️
@@ -42,6 +42,12 @@ conda instll muicebot
 ```
   </Tab>
 
+  <Tab label="uv">
+```shell
+uv add muicebot
+```
+  </Tab>
+
 </Tabs>
 
 默认情况下，这会仅安装 `OpenAI` 加载器所需的依赖，要想完整安装所有模型加载器的依赖，请执行：
@@ -71,6 +77,12 @@ conda instll muicebot[standard]
 ```
   </Tab>
 
+  <Tab label="uv">
+```shell
+uv add muicebot[standard]
+```
+  </Tab>
+
 </Tabs>
 
 完成安装后，请手动编辑 Nonebot 项目中的 `pyproject.toml`, 在 `[tool.nonebot]` 部分追加插件:
@@ -87,66 +99,6 @@ DRIVER=~fastapi+~websockets+~httpx
 
 接下来按照正常方式配置适配器的配置项即可
 
-## 插件必要配置项一览(.env)
+你可以提前运行 `nb run` 来查看 `Muicebot` 是否已经成功安装，但由于必需的配置项缺失，`Muicebot` 很有可能启动失败。
 
-### 响应昵称配置🧸
-
-正常情况下，MuiceBot 只会处理 `at_event` 事件或者是指令事件，对于某些客户端来说 @bot 的操作还是太麻烦了，有没有更加简单的方法？
-
-有的兄弟，有的。我们可以定义一个响应前缀来让沐雪响应消息事件。
-
-在 `.env` 文件中配置：
-
-```dotenv
-MUICE_NICKNAMES=["沐雪", "muice", "雪"]
-```
-
-这将响应前缀为“沐雪”、“muice”、“雪”的消息事件，且无需在响应前缀后面加入空格分隔符，比如下列的消息将被沐雪响应：
-
-> 雪，我只会对你动心你知道吗
-
-> 唔...真的嘛？（脸红）
-
-默认值: `["muice"]`
-
-### 超级用户
-
-超级用户可以执行例如 `.load` 之类改变机器人运行方式的指令，在配置文件中设置用户ID可以将其设为超级用户：
-
-```dotenv
-SUPERUSERS=["123456789"]
-```
-
-> [!NOTE]
->
-> 用户 ID 不一定是平台上显示的 ID ，比如 QQ 频道中的用户 ID 就不是 QQ 号。对此我们推荐你使用 `.whoami` 指令获取当前用户 ID
-
-*虽然但是，我的master只有一个哦*
-
-默认值: `[]`
-
-### 使用自定义插件/内嵌插件
-
-目前的内嵌插件有: `access_control`(Nonebot 黑白名单管理); `muicebot-plugin-time`(Function Call 获取当前时间); `muicebot-plugin-username`(Function Call 获取当前对话用户名)
-
-以下设置可以调整内嵌插件的开启或关闭
-
-```dotenv
-ENABLE_BUILTIN_PLUGINS=true
-```
-
-默认值: `true`
-
-对于自定义 Muicebot 或 Nonebot 插件，可以存放在机器人运行目录下的 `plugins` 文件夹下，程序启动时会自动加载。
-
-### 加载指定的 Nonebot 适配器(仅 Debug 用途)
-
-默认情况下，机器人入口文件只会加载 `nonebot.adapters.onebot.v11/12` 适配器，要想在 debug 环境中引入其他适配器，请参考：
-
-```dotenv
-enable_adapters = ["nonebot.adapters.onebot.v11", "nonebot.adapters.onebot.v12", "nonebot.adapters.telegram"]
-```
-
-至此，`NoneBot` 的本身的配置部分到此结束，但是你先别急，我们还要至少填写一个模型加载器配置才能正常启动 Muicebot
-
-参考下一节：[配置文件](/guide/configuration)
+要解决此问题，参见下一节: [配置文件](/guide/configuration)

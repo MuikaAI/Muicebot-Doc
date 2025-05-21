@@ -15,12 +15,78 @@
 | `INPUT_TIMEOUT`          | int = 0                                 | 输入等待时间。在这时间段内的消息将会被合并为同一条消息使用   |
 | `LOG_LEVEL`              | str = "INFO"                            | 日志等级                                                     |
 | `TELEGRAM_PROXY`         | Optional[str] = None                    | tg适配器代理，并使用该代理下载文件                           |
+| `STORE_INDEX`            | str = "...raw.githubusercontent.com..." | 商店索引文件获取位置，当网络受限时你可修改此选项               |
 | `ENABLE_BUILTIN_PLUGINS` | bool = True                             | 启用内嵌插件                                                 |
 | `ENABLE_ADAPTERS`        | list = ["~.onebot.v11", "~.onebot.v12"] | 在入口文件中启用的 Nonebot 适配器(仅 Debug 环境)             |
 
+## 建议配置项一览
+
+### 响应昵称配置🧸
+
+正常情况下，MuiceBot 只会处理 `at_event` 事件或者是指令事件，对于某些客户端来说 @bot 的操作还是太麻烦了，有没有更加简单的方法？
+
+有的兄弟，有的。我们可以定义一个响应前缀来让沐雪响应消息事件。
+
+在 `.env` 文件中配置：
+
+```dotenv
+MUICE_NICKNAMES=["沐雪", "muice", "雪"]
+```
+
+这将响应前缀为“沐雪”、“muice”、“雪”的消息事件，且无需在响应前缀后面加入空格分隔符，比如下列的消息将被沐雪响应：
+
+> 雪，今天的天气怎么样？
+
+默认值: `["muice"]`
+
+### 超级用户
+
+超级用户可以执行例如 `.load` 之类改变机器人运行方式的指令，在配置文件中设置用户ID可以将其设为超级用户：
+
+```dotenv
+SUPERUSERS=["123456789"]
+```
+
+> [!NOTE]
+>
+> 用户 ID 不一定是平台上显示的 ID ，比如 QQ 频道中的用户 ID 就不是 QQ 号。对此我们推荐你使用 `.whoami` 指令获取当前用户 ID
+
+*虽然但是，我的master只有一个哦*
+
+默认值: `[]`
+
+### 使用自定义插件/内嵌插件
+
+目前的内嵌插件有:
+
+- `access_control` Nonebot 黑白名单管理
+- `get_current_time` 获取当前时间的 Function Call 插件
+- `get_username` 获取当前对话用户名的 Function Call 插件
+- `thought_processor` 思维链处理
+- `muicebot_plugin_store` 商店插件管理
+
+以下设置可以调整内嵌插件的开启或关闭
+
+```dotenv
+ENABLE_BUILTIN_PLUGINS=true
+```
+
+默认值: `true`
+
+对于自定义的 Muicebot 或 Nonebot 插件，可以存放在机器人运行目录下的 `plugins` 文件夹下，程序启动时会自动加载。
+
+### 加载指定的 Nonebot 适配器(仅 Debug 用途)
+
+默认情况下，机器人入口文件只会加载 `nonebot.adapters.onebot.v11/12` 适配器，要想在 debug 环境中引入其他适配器，请参考：
+
+```dotenv
+enable_adapters = ["nonebot.adapters.onebot.v11", "nonebot.adapters.onebot.v12", "nonebot.adapters.telegram"]
+```
+
+
 # YAML 配置文件⚙️
 
-比起 dotenv ，yaml 配置给我们提供了更大的灵活性。因此我们也将使用 yaml 语法撰写更加灵活的配置。
+一些较为复杂的配置项在 dotenv 上的编写并不顺畅，因此在下面的配置中我们将改用 YAML
 
 在机器人目录上新建 `configs` 文件夹，下面的配置都在此文件夹中新建。
 
@@ -28,27 +94,20 @@
 
 在 `configs` 文件夹下新建 `models.yml`，用于存储模型加载器的配置。
 
-对于不同的模型加载器，所需要的配置项都大不相同。但大体遵循这样一个格式:
+对于不同的模型加载器，所需要的配置项都大不相同。但大体的格式都和以下的示例配置差不多
 
 ```yaml
-<model_config_name>: # 配置名称。唯一，可任取，不一定和模型加载器名称有关联
-  loader: <model_loader_name> # 模型加载器名称。对应的是 `muicebot/llm` 下的 `.py` 文件。通常模型加载器的首字母都是大写
-  template: Muice # 人设提示词 Jinja2 模板名称（不用带文件后缀）
-  config1: value1 # 具体的配置项和值
-  ...
+azure:  # 配置名称。唯一，可任取，不一定和模型加载器名称有关联
+  loader: Azure  # 模型加载器名称。对应的是 `muicebot/llm` 下的 `.py` 文件。通常模型加载器的首字母都是大写
+  model_name: DeepSeek-R1  # 模型名称（可选，默认为 DeepSeek-R1）
+  template: Muice  # 人设提示词 Jinja2 模板名称（不用带文件后缀）
+  api_key: ghp_xxxxxxxxxxxxxxxxx  # GitHub Token（若配置了环境变量，此项不填）
+  stream: true # 流式对话
+  multimodal: false # 是否启用多模态（可选。注意：使用的模型必须是多模态的）
+  function_call: true # 是否启用工具调用（可选。需要编写 function call 插件并启用）
 ```
 
-下面是 Azure 模型加载器的一个示例配置，您可以在 [模型加载器配置](/model/configuration) 一节中获取这些模型加载器分别所需要的配置。
-
-```yaml
-azure:
-  loader: Azure # 使用 azure 加载器
-  model_name: DeepSeek-R1 # 模型名称（可选，默认为 DeepSeek-R1）
-  template: Muice # 人设提示词 Jinja2 模板名称（不用带文件后缀）
-  api_key: ghp_xxxxxxxxxxxxxxxxx # GitHub Token（若配置了环境变量，此项不填）
-  system_prompt: '我们来玩一个角色扮演的小游戏吧，现在开始你是一个名为的“沐雪”的AI女孩子，用猫娘的语气和我说话。' # 系统提示（可选）
-  auto_system_prompt: true # 自动配置沐雪的系统提示（默认为 false）
-```
+以上给出了 Azure 模型加载器的一个示例配置，您可以在 [模型加载器配置](/model/configuration) 一节中获取这些模型加载器分别支持的配置。
 
 如果你不知道这些配置中哪些是必须的，那么你可以先填写一个 `loader` 配置，模型加载器初始化时会抛出错误并提示您
 
@@ -81,7 +140,7 @@ azure:
 
 **至少存在一个模型配置作为默认配置**
 
-在聊天中使用 `.load <model_config_name>` 指令（仅超级管理员）即可动态切换配置文件，比如 `.load xfyun`。
+在聊天中使用 `.load <model_config_name>` 指令（仅超级管理员）即可动态切换配置文件，比如 `.load azure`。
 
 若手动更改 `models.yml` 配置文件也能触发配置更新（注意：此操作不会有bot消息提示，只有控制台输出）。
 
@@ -200,6 +259,14 @@ auto_create_topic:
 
 ## 插件配置(plugins.yml)
 
+> [!WARNING]
+>
+> 为了保险起见，我们仍然建议 Nonebot 相关运行配置不应该使用此方法配置。此类配置应该仍然写在 dotenv 文件中（比如适配器配置和超级用户配置）
+>
+> 而像模型配置、插件配置、调度器配置等这些 MuiceBot 中特有的配置我们就可以使用 yaml 格式编写配置文件
+>
+> 由于此配置文件可用性较差，我们未来可能会移除此功能
+
 根据 Nonebot 的官方文档，普通的 Nonebot 项目需要在 `.env` 文件中填写插件配置。
 
 由于 dotenv 文件的编写总是不那么轻松，而且当插件配置项一多时，可读性就不是很高了。因此我们引入了 yaml 插件配置，与此同时兼容原先的 `.env` 文件（yaml 优先级更高）。
@@ -238,11 +305,6 @@ weather:
 
 这样当插件调用 `plugin_config = get_plugin_config(Config).weather` 时就能正常获取到 api_key 和 base_url 。
 
-> [!WARNING]
->
-> 为了保险起见，我们仍然建议 Nonebot 相关运行配置仍然写在 dotenv 文件中（比如适配器配置和超级用户配置），
-> 而像模型配置、插件配置、调度器配置等这些 MuiceBot 中特有的配置我们就可以使用 yaml 格式编写配置文件
-
 
 ## 内嵌插件配置(plugins.yml)
 
@@ -261,3 +323,32 @@ access_control:
   whitelist: ["telegram_Telegram_7312500650_-1002344076710_1580"]
   blacklist: []
 ```
+
+
+# JSON 配置文件🔧
+
+使用 JSON 格式的有且仅有 MCP Server 的配置项
+
+## MCP Server 配置
+
+创建 `config/mcp.json` 用于配置 MCP Server, 文件内容和标准 MCP Server Config 格式一致。
+
+以下是一个示例，该示例展现了如何配置高德地图的 MCP Server 配置
+
+```json
+{
+  "mcpServers": {
+    "amap-maps": {
+      "command": "npx",
+      "args": ["-y", "@amap/amap-maps-mcp-server"],
+      "env": {
+        "AMAP_MAPS_API_KEY": "<your api key>"
+      }
+    }
+  }
+}
+```
+
+保存并启动 `Muicebot`, `amap-maps` MCP Server 示例应被加载。
+
+有关 MCP Server 的更多信息，参见: [MCP Server 开发文档](https://modelcontextprotocol.io/quickstart/server)

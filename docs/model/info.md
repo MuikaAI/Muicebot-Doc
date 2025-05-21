@@ -4,16 +4,14 @@
 
 我们目前实现了以下模型加载器:
 
-| 模型加载器                                                   | 介绍                                                         | 支持的模型列表                                               |
+| 模型加载器                                                   | 介绍                                                         | 模型列表                                                     |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [Azure](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Azure.py) | 可调用 [GitHub Marketplace ](https://github.com/marketplace/models)中的在线模型 | [*模型列表*](https://github.com/marketplace?type=models)     |
-| [Dashscope](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Dashscope.py) | 可调用阿里云百炼平台的在线模型                               | [*模型列表*](https://help.aliyun.com/zh/model-studio/getting-started/models) |
-| [Llmtuner](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Llmtuner.py) | 可调用 [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory/tree/main) 支持的模型 | [*模型列表*](https://github.com/hiyouga/LLaMA-Factory/blob/main/README_zh.md#模型) |
-| [Ollama](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Ollama.py) | 使用 Ollama Python SDK 访问 Ollama 接口，需要提前启动模型服务 | [*模型列表*](https://ollama.com/search)                      |
+| [Azure](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Azure.py) | 可调用 [GitHub Marketplace ](https://github.com/marketplace/models)中的在线模型 | [Github MarketPlace](https://github.com/marketplace?type=models) |
+| [Dashscope](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Dashscope.py) | 可调用阿里云百炼平台的在线模型                               | [官方文档](https://help.aliyun.com/zh/model-studio/getting-started/models) |
+| [Gemini](https://aistudio.google.com/)                       | 使用 Gemini Python SDK 访问 Google Gemini 服务中的模型       | [模型列表](https://ai.google.dev/gemini-api/docs/models?hl=zh-cn) |
+| [Ollama](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Ollama.py) | 使用 Ollama Python SDK 访问 Ollama 接口，需要提前启动模型服务 | [模型列表](https://ollama.com/search)                        |
 | [Openai](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Openai.py) | 可调用 OpenAI API 格式的接口，支持 DeepSeek 官方API          | *any*                                                        |
-| [Rwkv](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Rwkv.py) | 使用 [RWKV-Runner](https://github.com/josStorer/RWKV-Runner) 提供的 API 服务访问 RWKV 模型 | *RWKV-any*                                                   |
-| [Transformers](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Transformers.py) | 使用 transformers 方案加载, 适合通过 P-tuning V2 方式微调的模型 | ChatGLM                                                      |
-| [Xfyun](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Xfyun.py) | 可调用由 [星火大模型精调平台](https://training.xfyun.cn/) 微调的在线模型 | [*模型列表*](https://training.xfyun.cn/modelSquare)          |
+
 
 对于不同的加载器，可能需要额外的依赖，请根据报错提示安装。
 

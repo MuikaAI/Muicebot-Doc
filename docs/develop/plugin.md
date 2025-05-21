@@ -19,6 +19,7 @@ Muicebot 的插件索引库为 [MuikaAI/Muicebot-Plugins-Index](https://github.c
 您可以通过 `.store` 命令安装插件等操作，`.store` 命令常见的用法如下:
 
 - `.store install <插件名>` 安装插件
+- `.store show` 查看已安装的插件信息
 - `.store update <插件名>` 更新插件
 - `.store uninstall <插件名>` 卸载插件
 
@@ -195,7 +196,7 @@ async def get_weather(location: str) -> str:
 
 配置好后就可以运行了。你看，很简单不是吗？
 
-## 使用钩子函数
+## 开发钩子函数插件
 
 在 `Muicebot` 的整个消息处理流程中，提供了 4 个钩子函数可以用来修改消息处理流程中的一些数据，从而有利于 TTS，记忆插件的编写
 
