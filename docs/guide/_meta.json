@@ -7,17 +7,42 @@
     {
         "type": "file",
         "name": "setup",
-        "label": "快速安装"
+        "label": "快速开始"
     },
     {
         "type": "file",
         "name": "configuration",
-        "label": "配置文件"
+        "label": "全局配置"
+    },
+    {
+        "type": "file",
+        "name": "model",
+        "label": "模型加载器"
+    },
+    {
+        "type": "file",
+        "name": "schedule",
+        "label": "定时任务"
     },
     {
         "type": "file",
         "name": "command",
-        "label": "指令说明"
+        "label": "指令介绍"
+    },
+    {
+        "type": "file",
+        "name": "plugin",
+        "label": "使用插件"
+    },
+    {
+        "type": "file",
+        "name": "template",
+        "label": "人设模板"
+    },
+    {
+        "type": "file",
+        "name": "MCP",
+        "label": "MCP 工具"
     },
     {
         "type": "file",

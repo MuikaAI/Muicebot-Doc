@@ -8,5 +8,10 @@
         "type": "file",
         "name": "Muice",
         "label": "关于沐雪"
+    },
+    {
+        "type": "file",
+        "name": "evaluate",
+        "label": "沐雪系列模型评测标准"
     }
 ]

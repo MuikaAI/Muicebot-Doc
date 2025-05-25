@@ -1,28 +1,5 @@
 # 插件开发
 
-## 使用 Nonebot2 插件
-
-本项目完全兼容基于原生 Nonebot2 开发的插件，您只需要按照 `nb plugin install` 的正常方式安装插件即可
-
-## 使用 Muicebot 插件
-
-### 自定义插件
-
-Muicebot 时会自动查找 `plugins` 文件夹下的插件并加载，因此你可以在此文件夹中放入您的自定义插件
-
-对于依赖 `nonebot_plugin_localstore` 的插件，我们并不建议通过此方式加载，因为 `get_plugin_data_dir` 函数可能会返回一个非预期的插件目录
-
-### 商店插件
-
-Muicebot 的插件索引库为 [MuikaAI/Muicebot-Plugins-Index](https://github.com/MuikaAI/Muicebot-Plugins-Index)
-
-您可以通过 `.store` 命令安装插件等操作，`.store` 命令常见的用法如下:
-
-- `.store install <插件名>` 安装插件
-- `.store show` 查看已安装的插件信息
-- `.store update <插件名>` 更新插件
-- `.store uninstall <插件名>` 卸载插件
-
 ## 开发 Function Call 插件
 
 工具调用是目前主流大语言模型的重要能力之一，使用工具函数，AI可以获得操作现实的能力并协助我们完成更多的日常任务。

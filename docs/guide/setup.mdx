@@ -97,8 +97,68 @@ plugins = ["muicebot"]
 DRIVER=~fastapi+~websockets+~httpx
 ```
 
-接下来按照正常方式配置适配器的配置项即可
+接下来，我们将进行一些必要项的配置来成功启动 Muicebot
 
-你可以提前运行 `nb run` 来查看 `Muicebot` 是否已经成功安装，但由于必需的配置项缺失，`Muicebot` 很有可能启动失败。
+## 模型配置
 
-要解决此问题，参见下一节: [配置文件](/guide/configuration)
+在机器人目录下创建 `configs` 文件夹，这个文件夹用于存储 Muicebot 的配置文件
+
+在本节中，我们将创建一个 `models.yml` 文件，这个文件用于放置模型相关的配置
+
+创建 `models.yml` 文件，从 [模型加载器列表](/guide/model#实现的加载器及其支持的模型) 中选择一个你所熟悉的模型并进行相关配置。
+
+以 `Openai` 加载器为例，这个加载器可用于加载 `OpenAI API` 兼容的 API 模型接口。
+
+在 `models.yml` 中写入:
+
+```yaml
+qwen3:
+  loader: Openai # 使用 openai 加载器（必填）
+  model_name: qwen3-235b-a22b # 模型名称（必填）
+  api_key: <YOUR-OPENAI-API-KEY> # API 密钥（必须）
+  api_host: https://dashscope.aliyuncs.com/compatible-mode/v1 # 服务器 API 接口地址 （可选，默认 OpenAI 服务）
+  template: Muice # 使用的模板名称（可选，无默认值）
+  stream: true # 流式对话
+  multimodal: false # 是否启用多模态（可选。注意：使用的模型必须是多模态的）
+  function_call: true # 是否启用工具调用（可选。需要编写 function call 插件并启用）
+```
+
+以上的内容定义了一个名为 `qwen3` 的模型配置并使用 `OpenAI` 模型加载器加载，这个模型加载器将会调用 DashScope 的 `qwen3-235b-a22b` 模型并启用流式输出和工具调用
+
+有关各模型加载器的相关信息和具体配置，请参考 [模型加载器信息](/guide/model) 一节
+
+除此之外，此模型加载器使用了一个名为 `Muice` 的人设模板，这个模板会在对话时被使用并实时生成系统提示传入到 LLM 中
+
+有关人设模板的相关信息，请参考 [人设模板](/guide/template) 一节
+
+## 启动 Muicebot
+
+如果一切顺利，以 QQ 适配器为例，在运行 `nb run` 后，你将会看到以下输出，这表明 Bot 已经开始工作：
+
+```shell
+(MuxueBot) C:\Users\Muika\Desktop\nonebot-plugin-muice>nb run
+[SUCCESS] init: NoneBot is initializing...
+[INFO] init: Current Env: prod
+[SUCCESS] load_plugin: Succeeded to load plugin "nonebot_plugin_alconna:uniseg" from "nonebot_plugin_alconna.uniseg"
+[SUCCESS] load_plugin: Succeeded to load plugin "nonebot_plugin_waiter"
+[SUCCESS] load_plugin: Succeeded to load plugin "nonebot_plugin_alconna"
+[SUCCESS] load_plugin: Succeeded to load plugin "nonebot_plugin_localstore"
+[SUCCESS] load_plugin: Succeeded to load plugin "nonebot_plugin_apscheduler"
+[INFO] __init__: 数据库路径: C:\Users\Muika\AppData\Local\nonebot2\Muice\ChatHistory.db
+[SUCCESS] load_plugin: Succeeded to load plugin "Muice"
+[SUCCESS] run: Running NoneBot...
+[SUCCESS] run: Loaded adapters: OneBot V12, OneBot V11, Telegram, QQ
+[INFO] _serve: Started server process [40776]
+[INFO] startup: Waiting for application startup.
+[INFO] _start_scheduler: Scheduler Started
+[INFO] load_model: 正在加载模型...
+[INFO] load_model: 模型加载成功
+[INFO] on_startup: MuiceAI 聊天框架已开始运行⭐
+[INFO] startup: Application startup complete.
+[INFO] _log_started_message: Uvicorn running on http://127.0.0.1:8080 (Press CTRL+C to quit)
+[INFO] log: QQ | Bot 123456789 connected
+```
+
+现在，当你 @ 机器人或执行命令时 Bot 将开始回复消息流程，除此之外它不会做任何事，除非定时任务开始。
+
+赶紧 @bot 来愉快地和机器人玩耍吧！⭐
