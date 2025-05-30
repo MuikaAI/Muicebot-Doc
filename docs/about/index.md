@@ -26,8 +26,6 @@ BSD 3 许可证同样适用于沐雪的系统提示词，沐雪的文字人设�
 
 基于 OneBot V11 的原始实现：[Moemu/Muice-Chatbot](https://github.com/Moemu/Muice-Chatbot)
 
-官方唯一频道：[沐雪的小屋](https://pd.qq.com/s/d4n2xp45i)
-
 <a href="https://www.afdian.com/a/Moemu" target="_blank"><img src="https://pic1.afdiancdn.com/static/img/welcome/button-sponsorme.png" alt="afadian" style="height: 45px !important;width: 163px !important;"></a>
 <a href="https://www.buymeacoffee.com/Moemu" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 45px !important;width: 163px !important;" ></a>
 

@@ -23,12 +23,7 @@ export default defineConfig({
         icon: 'bilibili',
         mode: 'link',
         content: 'https://space.bilibili.com/97020216',
-      },
-      {
-        icon: 'qq',
-        mode: 'link',
-        content: 'https://pd.qq.com/s/d4n2xp45i',
-      },
+      }
     ],
   },
 });
