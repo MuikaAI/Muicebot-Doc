@@ -53,17 +53,4 @@ Muicebot 内置一个名为沐雪的聊天人设（人设是可选的）以便�
 
 ## TODO📝
 
-- [X] Function Call 插件系统
-
-- [X] 多模态模型：工具集支持
-
-- [X] MCP Client 实现
-
-- [X] 插件索引库搭建
-
-- [ ] 短期记忆和长期记忆优化。总感觉这是提示工程师该做的事情，~~和 Bot 没太大关系~~
-
-- [ ] 发布。我知道你很急，但是你先别急。
-
-
-近期更新路线：[MuiceBot 更新计划](https://github.com/users/Moemu/projects/2)
+[MuiceBot 更新计划](https://github.com/users/Moemu/projects/2)

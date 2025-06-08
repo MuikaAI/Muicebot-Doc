@@ -15,12 +15,14 @@ from muicebot.plugin import PluginMetadata
 from muicebot.plugin.func_call import on_function_call
 from muicebot.plugin.func_call.parameter import String
 
-__metadata__ = PluginMetadata(
+# 插件元数据（发布到商店必备）
+__plugin_meta__ = PluginMetadata(
     name="muicebot-plugin-weather",
     description="获取天气",
     usage="在配置文件中配置好 api_key 后通过 function_call 调用"
 )
 
+# 注册一个 Function Call 函数，并声明 location 参数
 @on_function_call(description="可以用于查询天气").params(
     location = String(description="城市。(格式:城市英文名,国家两位大写英文简称)", required=True)
 )
@@ -48,7 +50,7 @@ MuiceBot 的 Function_call 插件支持 NoneBot2 原生的会话上下文依赖�
 - Event 及其子类实例
 - Bot 及其子类实例
 - Matcher 及其子类实例
-- Muice 类（TODO）
+- Muice 类(Muicebot only)
 
 下面让我们使用依赖注入来给我们的 `weather.py` 添加一个简单获取用户名的功能
 
@@ -84,94 +86,6 @@ async def get_weather(location: str, bot: Bot, event: Event) -> str:
     username = await get_username(bot, event)
     return f"{username}你好，{location}的天气是晴天, 温度是25°C"
 ```
-
-### 配置文件
-
-现在，我们的天气函数只能返回固定的字段，还未能调用真实的 API 接口来获取更详细的天气信息。
-
-为了使用 API 接口，我们需要 API Key，这时我们可以使用配置文件来安全地存储密钥。
-
-新建 config.py ，填写：
-
-```python
-from pydantic import BaseModel, field_validator
-
-class ScopeConfig(BaseModel):
-    api_key: str
-    base_url: str = "https://api.openweathermap.org/data/2.5/weather"
-
-class Config(BaseModel):
-    weather: ScopeConfig
-```
-
-MuiceBot 的插件配置模型写法和 Nonebot 模型写法是一样的，但这里我们使用了 scope 配置。事实上，对于 MuiceBot ，我们推荐使用 scope 写法从而避免在配置项前填写长长的插件前缀。
-
-但最重要的理由是，我们推荐使用 YAML 语法填写 MuiceBot 的插件配置，参见：[配置文件](/guide/configuration)
-
-然后像正常的 Nonebot 插件一样，加载插件配置即可。
-
-参考 openweathermap 的接口文档，在 `weather.py` 中写入：
-
-```python
-from muicebot.plugin import on_function_call, String
-from nonebot import logger
-from nonebot import get_plugin_config
-from .config import Config
-import httpx
-
-plugin_config = get_plugin_config(Config).weather # 获取插件配置
-
-@on_function_call(description="可以用于查询天气").params(
-    location = String(description="城市。(格式:城市英文名,国家两位大写英文简称)", required=True)
-)
-async def get_weather(location: str) -> str:
-    """查询指定地点的天气信息"""
-    base_url = plugin_config.base_url
-
-    # 构建请求参数
-    params = {
-        "q": location,
-        "appid": plugin_config.api_key,
-        "units": "metric",  # 摄氏温度
-        "lang": "zh_cn"     # 中文
-    }
-
-    try:
-        async with httpx.AsyncClient() as client:
-            response = await client.get(base_url, params=params, timeout=10)
-
-            if response.status_code != 200:
-                logger.error(f"请求失败: {response.status_code} - {response.text}")
-                return f"获取天气信息失败：{response.status_code}"
-
-            data = response.json()
-
-            # 解析返回的天气数据
-            city = data.get("name", location)
-            weather_desc = data["weather"][0]["description"]
-            temp = data["main"]["temp"]
-            humidity = data["main"]["humidity"]
-            wind_speed = data["wind"]["speed"]
-
-            # 格式化天气信息
-            result = (
-                f"{city} 的天气：\n"
-                f"天气：{weather_desc}\n"
-                f"温度：{temp}°C\n"
-                f"湿度：{humidity}%\n"
-                f"风速：{wind_speed} m/s"
-            )
-            return result
-
-    except httpx.HTTPError as e:
-        logger.error(f"HTTP请求异常: {str(e)}")
-        return "获取天气信息失败，请稍后再试。"
-    except Exception as e:
-        logger.error(f"出现异常: {str(e)}")
-        return "查询天气时发生错误，请检查日志。"
-```
-
-配置好后就可以运行了。你看，很简单不是吗？
 
 ## 开发钩子函数插件
 
