@@ -52,6 +52,6 @@
     {
         "type": "file",
         "name": "migrations",
-        "label": "从 Chatbot 中迁移"
+        "label": "更新指南"
     }
 ]

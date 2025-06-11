@@ -13,5 +13,10 @@
         "type": "file",
         "name": "evaluate",
         "label": "沐雪系列模型评测标准"
+    },
+    {
+        "type": "file",
+        "name": "Muika",
+        "label": "关于沐妮卡"
     }
 ]

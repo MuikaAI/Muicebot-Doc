@@ -1,6 +1,8 @@
 # 人设模板📃
 
-MuiceBot 使用基于 Jinja2 的模板引擎实现动态人设提示词，其中内嵌的沐雪模板文件位于 [Muice.jinja2](https://github.com/Moemu/MuiceBot/blob/main/muicebot/builtin_templates/Muice.jinja2) 可供参考
+MuiceBot 使用基于 Jinja2 的模板引擎实现动态人设提示词，其中内嵌的沐雪模板文件位于 [Muice.jinja2](https://github.com/Moemu/MuiceBot/blob/main/muicebot/builtin_templates/Muice.jinja2) 可供参考。
+
+除此之外，我们还加入了一个沐妮卡的人设模板 [Muika.jinja2](https://github.com/Moemu/MuiceBot/blob/dev/muicebot/builtin_templates/Muika.jinja2)
 
 生成的人设既可以作为系统提示词使用，也可以放置在用户提示中（比如 DeepSeek 这类不支持系统提示的模型）
 
