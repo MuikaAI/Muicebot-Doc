@@ -5,7 +5,7 @@
 
 Muicebot 是基于 Nonebot2 框架实现的 LLM 聊天机器人，旨在解决现实问题。通过 Muicebot ，你可以在主流聊天平台（如 QQ）获得只有在网页中才能获得的聊天体验。
 
-Muicebot 内置一个名为沐雪的聊天人设（人设是可选的）以便优化对话体验。有关沐雪的设定，还请移步 [关于沐雪](https://bot.snowy.moe/about/Muice)
+Muicebot 内置两个分别名为沐雪和沐妮卡的聊天人设（人设是可选的）以便优化对话体验。有关沐雪和沐妮卡的设定，还请移步 [关于沐雪](https://bot.snowy.moe/about/Muice)
 
 ## 功能🪄
 
