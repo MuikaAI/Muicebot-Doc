@@ -1,19 +1,21 @@
 # 快速开始💻
 
-本指南将指导您在现有的 NoneBot 项目中快速集成本 Bot 服务。
+本指南将指导您在现有的 NoneBot2 项目中快速集成本 Bot 服务。
 
 建议环境：
 
 - Python 3.10 及以上 Python 版本
 
-- 一个已经存在的 Nonebot 项目。如需新建项目，请参考: [快速上手 | Nonebot](https://nonebot.dev/docs/quick-start#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE)
-
 
 ## 安装插件⚙️
 
-MuiceBot 将作为 Nonebot 插件的方式提供安装
+MuiceBot 将作为 Nonebot2 插件的方式提供安装
 
-由于此插件还在开发早期，因此请通过包管理器手动安装插件：
+## 通过包管理器进行安装
+
+此方式需要基于一个已经存在的 Nonebot2 项目。如需新建项目，请参考: [快速上手 | Nonebot](https://nonebot.dev/docs/quick-start#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE)
+
+或 [从 Muice-Chatbot 迁移至 MuiceBot](https://www.bilibili.com/opus/1053416496894574593) 中的创建 Nonebot2 机器人项目部分
 
 import { Tab, Tabs } from 'rspress/theme';
 
@@ -85,10 +87,18 @@ uv add muicebot[standard]
 
 </Tabs>
 
-完成安装后，请手动编辑 Nonebot 项目中的 `pyproject.toml`, 在 `[tool.nonebot]` 部分追加插件:
+完成安装后，请手动编辑 Nonebot2 项目中的 `pyproject.toml`, 在 `[tool.nonebot]` 部分追加插件:
 
 ```toml
 plugins = ["muicebot"]
+```
+
+## 通过 git clone 的方式进行安装(Dev)
+
+```
+git clone https://github.com/Moemu/Muicebot.git
+cd Muicebot
+pip install .  # pip install .[standard]
 ```
 
 插件安装完毕后，为了正常启动 Nonebot 服务，请确认您已安装 Nonebot 适配器所需的驱动器，推荐的配置如下：
