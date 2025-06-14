@@ -10,8 +10,8 @@
         "label": "开发 Muicebot 插件"
     },
     {
-        "type": "file",
-        "name": "release",
+        "type": "custom-link",
+        "link": "https://github.com/MuikaAI/Muicebot-Plugins-Index/blob/main/CONTRIBUTING.md",
         "label": "发布 Muicebot 插件"
     },
     {
