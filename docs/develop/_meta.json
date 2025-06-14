@@ -13,5 +13,10 @@
         "type": "file",
         "name": "release",
         "label": "发布 Muicebot 插件"
+    },
+    {
+        "type": "file",
+        "name": "api",
+        "label": "API 参考"
     }
 ]
