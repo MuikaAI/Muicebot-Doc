@@ -16,6 +16,11 @@
     },
     {
         "type": "file",
+        "name": "practice",
+        "label": "优秀实践"
+    },
+    {
+        "type": "file",
         "name": "api",
         "label": "API 参考"
     }
