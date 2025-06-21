@@ -84,7 +84,7 @@ __plugin_meta__ = PluginMetadata(
 )
 ```
 
-> [!IMPORTANT]
+> [!TIP]
 >
 > 对于要发布在 Muicebot-Plugin-Index 的插件来说，插件元数据是必须的，没有插件元数据将无法通过工作流测试
 
