@@ -170,3 +170,23 @@ else:
 
 logger.debug(f"LLM 请求已完成，用量: {response_usage}")
 ```
+
+### 提取思考结果
+
+模型交互层不会自动提取思考结果，也无法从配置文件中推断目前选用的是否是推理模型，因此无论是否启用了推理模式，你都需要手动处理模型输出后的结果
+
+```python
+import re
+
+def process_message(message: str) -> str:
+    """
+    提取思考结果
+    """
+    if not message.startswith("<think>"):
+        return message
+
+    thoughts_pattern = re.compile(r"<think>(.*?)</think>", re.DOTALL)
+    result = thoughts_pattern.sub("", message).strip()
+
+    return result
+```

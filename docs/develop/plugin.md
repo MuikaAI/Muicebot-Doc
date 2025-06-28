@@ -14,6 +14,7 @@
 from muicebot.plugin import PluginMetadata
 from muicebot.plugin.func_call import on_function_call
 from muicebot.plugin.func_call.parameter import String
+from pydantic import BaseModel, Field
 
 # 插件元数据（发布到商店必备）
 __plugin_meta__ = PluginMetadata(
@@ -23,9 +24,10 @@ __plugin_meta__ = PluginMetadata(
 )
 
 # 注册一个 Function Call 函数，并声明 location 参数
-@on_function_call(description="可以用于查询天气").params(
-    location = String(description="城市。(格式:城市英文名,国家两位大写英文简称)", required=True)
-)
+class Params(BaseModel):
+    location: str = Field(description="城市。(格式:城市英文名,国家两位大写英文简称)")
+
+@on_function_call(description="可以用于查询天气", params=Params)
 async def get_weather(location: str) -> str:
     # 这里可以调用天气API查询天气，这里只是一个简单的示例
     return f"{location}的天气是晴天, 温度是25°C"
@@ -35,13 +37,50 @@ async def get_weather(location: str) -> str:
 
 - 通过 `muicebot.plugin.PluginMetadata` 撰写插件元数据
 
-- 通过 `@on_function_call` 装饰器注册可供 AI 直接调用的 `function_call` 函数。这里我们需要填写一个参数：
+- 通过 `@on_function_call` 装饰器注册可供 AI 直接调用的 `function_call` 函数。这里我们需要填写两个参数：
 
     - `description` 函数描述。这个字段会被传入到模型加载器的 `tools` 列表，来给 AI 决定何时调用
 
-- 通过装饰器的 `params` 方法定义函数参数（可选）
+    - 通过装饰器的 `params` 参数定义工具参数模型（可选）
 
 - **十分建议** 使用异步函数作为被修饰函数，无论是否有异步调用
+
+### 声明 Function Call 工具参数
+
+从 1.0.2 开始，Muicebot 支持 Pydantic 模型作为 Function Call 的参数声明参数，而逐渐弃用旧的 `.params` 方法。因为 Pydantic 模型更类型安全和灵活
+
+具体流程如下:
+
+编写一个 Function Call 函数的 Pydantic 参数模型:
+
+```python
+from pydantic import BaseModel, Field
+from typing import Optional, List
+
+class Paramparameters(BaseModel):
+    code: str = Field(description="Python 代码")
+    file_ids: Optional[List[str]] = Field(description="（可选）要操作的完整文件名(id_filename.suffix)列表", default=None)
+```
+
+然后注册一个 Function Call 函数，并传入参数模型类 `params`:
+
+```python
+@on_function_call("可用于运行 Python 代码的工具，具体代码将在 docker 沙盒环境安全运行。"
+                  "是否允许联网取决于用户具体设置，默认情况下沙盒环境不允许联网。"
+                  "要操作文件，请从 `./attachments/` 文件夹下通过文件名访问。"
+                  "要输出文件，请在程序输出中加入<output>./path/filename.suffix</output>标签，标签内部为有效的文件路径",
+                   params=Paramparameters)
+async def handle_code(code: str, file_ids: Optional[list[str]] = None) -> str:
+    files: list[Resource] = []
+    for file_id in (file_ids or []):
+        if file_id not in _file_ids.values():
+            return "Files ID 不存在！"
+        files.extend([file for file in _file_ids.keys() if _file_ids[file] == file_id])
+
+    return "..."
+```
+
+运行或者 Debug ，然后看 AI 是否如预期一般调用了该函数。
 
 ### 依赖注入
 
@@ -50,13 +89,14 @@ MuiceBot 的 Function_call 插件支持 NoneBot2 原生的会话上下文依赖�
 - Event 及其子类实例
 - Bot 及其子类实例
 - Matcher 及其子类实例
-- Muice 类(Muicebot only)
+- Muice 类(Muicebot only) (即将弃用，请改为使用 `Muice.get_instance()` 方法获取)
 
 下面让我们使用依赖注入来给我们的 `weather.py` 添加一个简单获取用户名的功能
 
 ```python
 from nonebot.adapters import Bot, Event
 from nonebot.adapters.onebot.v12 import Bot as Onebotv12Bot
+from pydantic import BaseModel, Field
 
 from muicebot.plugin import PluginMetadata
 from muicebot.plugin.func_call import on_function_call
@@ -79,9 +119,10 @@ async def get_username(bot: Bot, event: Event) -> str:
 
     return username
 
-@on_function_call(description="可以用于查询天气").params(
-    location = String(description="城市。(格式:城市英文名,国家两位大写英文简称)", required=True)
-)
+class Params(BaseModel):
+    location: str = Field(description="城市。(格式:城市英文名,国家两位大写英文简称)")
+
+@on_function_call(description="可以用于查询天气", params=Params)
 async def get_weather(location: str, bot: Bot, event: Event) -> str:
     username = await get_username(bot, event)
     return f"{username}你好，{location}的天气是晴天, 温度是25°C"
