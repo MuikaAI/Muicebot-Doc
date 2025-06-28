@@ -1,0 +1,61 @@
+name: Markdown Quality Checks
+
+on:
+  push:
+    paths:
+      - '**.md'
+  pull_request:
+    paths:
+      - '**.md'
+
+jobs:
+  markdown_quality:
+    name: Run Markdown Quality Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Prettier - Format Markdown files
+      - name: Install Prettier
+        run: npm install -g prettier
+      - name: Run Prettier
+        run: prettier --check "**/*.md" --write
+
+      # cspell - Spell Check Markdown
+      # - name: Install cspell
+      #   run: npm install -g cspell
+      # - name: Spell check Markdown files
+      #   run: cspell "**/*.md"
+
+      # markdownlint - Lint Markdown files
+      - name: Run markdownlint
+        uses: DavidAnson/markdownlint-cli2-action@v15
+        with:
+          globs: '**/*.md'
+
+      # Lychee - Broken Link Checker
+      - name: Check for broken links
+        uses: lycheeverse/lychee-action@v1.9.0
+        with:
+          args: --verbose --no-progress "**/*.md"
+
+      - name: Generate App Token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - name: Commit changes
+        env:
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+        run: |
+          git add .
+          git config user.name "muiceai[bot]"
+          git config user.email "216272510+muiceai[bot]@users.noreply.github.com"
+          git diff --cached --quiet || git commit -m "style: 修复文档格式喵"
+
+          git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git
+          git push origin HEAD:main
