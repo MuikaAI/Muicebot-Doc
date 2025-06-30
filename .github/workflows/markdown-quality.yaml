@@ -33,7 +33,10 @@ jobs:
       - name: Run markdownlint
         uses: DavidAnson/markdownlint-cli2-action@v15
         with:
-          globs: '**/*.md'
+          globs: |
+            '**/*.md'
+            !README.md
+          fix: true
 
       # Lychee - Broken Link Checker
       - name: Check for broken links

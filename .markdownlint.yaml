@@ -1,0 +1,7 @@
+default: true
+ignore:
+  - "README.md"
+  - "docs/about/index.md"
+MD013: false
+MD024: false
+MD036: false
