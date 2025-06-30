@@ -294,7 +294,7 @@ return {"type": self.type, "path": self.path, "mimetype": self.mimetype}
 
 - **类型**
 
-    [ModelConfig](#class-modelconfig)
+    [ModelConfig](#class-modelconfigbasemodel)
 
 - **说明**
 
@@ -358,7 +358,7 @@ return {"type": self.type, "path": self.path, "mimetype": self.mimetype}
 
     bool 是否加载成功
 
-### abstractmethod def ask(self, request: ModelRequest, *, stream: bool = False):
+### abstractmethod def ask(self, request: ModelRequest, *, stream: bool = False)
 
 - **说明**
 
@@ -380,7 +380,7 @@ return {"type": self.type, "path": self.path, "mimetype": self.mimetype}
 参见: [_config.py](https://github.com/Moemu/MuiceBot/blob/main/muicebot/llm/_config.py#L7)
 
 
-### class ModelRequest:
+### class ModelRequest
 
 模型调用请求
 
