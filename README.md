@@ -7,7 +7,6 @@
   <a href="https://bot.snowy.moe/guide/setup.html">✨快速开始</a>
 </div>
 
-
 这里是 [Muicebot](https://github.com/Moemu/Muicebot) 的文档站！欢迎你来到这里！
 
 我们使用 [rspress](https://github.com/web-infra-dev/rspress) 作为文档框架，你可以直接在 `docs` 文件夹中使用 Markdown 或 MDX 语法撰写文档。

@@ -12,14 +12,13 @@
 
 我们目前实现了以下模型加载器:
 
-| 模型加载器                                                   | 介绍                                                         | 模型列表                                                     |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [Azure](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Azure.py) | 可调用 [GitHub Marketplace ](https://github.com/marketplace/models)中的在线模型 | [Github MarketPlace](https://github.com/marketplace?type=models) |
-| [Dashscope](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Dashscope.py) | 可调用阿里云百炼平台的在线模型                               | [官方文档](https://help.aliyun.com/zh/model-studio/getting-started/models) |
-| [Gemini](https://aistudio.google.com/)                       | 使用 Gemini Python SDK 访问 Google Gemini 服务中的模型       | [模型列表](https://ai.google.dev/gemini-api/docs/models?hl=zh-cn) |
-| [Ollama](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Ollama.py) | 使用 Ollama Python SDK 访问 Ollama 接口，需要提前启动模型服务 | [模型列表](https://ollama.com/search)                        |
-| [Openai](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Openai.py) | 可调用 OpenAI API 格式的接口，支持 DeepSeek 官方API          | *any*                                                        |
-
+| 模型加载器                                                                      | 介绍                                                                            | 模型列表                                                                   |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| [Azure](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Azure.py)         | 可调用 [GitHub Marketplace ](https://github.com/marketplace/models)中的在线模型 | [Github MarketPlace](https://github.com/marketplace?type=models)           |
+| [Dashscope](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Dashscope.py) | 可调用阿里云百炼平台的在线模型                                                  | [官方文档](https://help.aliyun.com/zh/model-studio/getting-started/models) |
+| [Gemini](https://aistudio.google.com/)                                          | 使用 Gemini Python SDK 访问 Google Gemini 服务中的模型                          | [模型列表](https://ai.google.dev/gemini-api/docs/models?hl=zh-cn)          |
+| [Ollama](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Ollama.py)       | 使用 Ollama Python SDK 访问 Ollama 接口，需要提前启动模型服务                   | [模型列表](https://ollama.com/search)                                      |
+| [Openai](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Openai.py)       | 可调用 OpenAI API 格式的接口，支持 DeepSeek 官方API                             | _any_                                                                      |
 
 对于不同的加载器，可能需要额外的依赖，请根据报错提示安装。
 
@@ -27,13 +26,13 @@
 
 ### 加载器功能支持列表
 
-| 模型加载器   | 流式对话  | 多模态输入/输出 | 结构化输出 | 推理模型调用 | 工具调用 | 联网搜索 |
-| ----------- | -------- | -------- | ------------ | -------------------- | -------------------- | -------------------- |
-| `Azure`     | ✅       | 🎶🖼️/❌   | ✅  | ⭕            | ✅                    | ❌                    |
-| `Dashscope` | ✅       | 🎶🖼️/❌       | ⭕   | ✅            | ⭕                    | ✅                    |
-| `Gemini`    | ✅       | ✅/🖼️         | ✅       | ⭕            | ✅                    | ✅                    |
-| `Ollama`    | ✅       | 🖼️/❌         | ✅        | ✅            | ✅                    | ❌                    |
-| `Openai`    | ✅       | ✅/🎶      | ✅     | ✅            | ✅                    | ❌                    |
+| 模型加载器  | 流式对话 | 多模态输入/输出 | 结构化输出 | 推理模型调用 | 工具调用 | 联网搜索 |
+| ----------- | -------- | --------------- | ---------- | ------------ | -------- | -------- |
+| `Azure`     | ✅       | 🎶🖼️/❌         | ✅         | ⭕           | ✅       | ❌       |
+| `Dashscope` | ✅       | 🎶🖼️/❌         | ⭕         | ✅           | ⭕       | ✅       |
+| `Gemini`    | ✅       | ✅/🖼️           | ✅         | ⭕           | ✅       | ✅       |
+| `Ollama`    | ✅       | 🖼️/❌           | ✅         | ✅           | ✅       | ❌       |
+| `Openai`    | ✅       | ✅/🎶           | ✅         | ✅           | ✅       | ❌       |
 
 ✅：表示此加载器能很好地支持该功能并且 `MuiceBot` 已实现
 
@@ -47,7 +46,7 @@
 
 多模态标记：🎶表示音频；🎞️ 表示视频；🖼️ 表示图像；📄表示文件；✅ 表示完全支持
 
-*要使用多模态，请在模型配置中写入 `multimodal: true` 来启用多模态功能
+\*要使用多模态，请在模型配置中写入 `multimodal: true` 来启用多模态功能
 
 关于部分模型加载器的 ⭕ 标记
 
@@ -61,7 +60,6 @@
 
 5. 对于 `Openai` 和 `Gemini` 加载器，如需使用代理，请配置 `HTTP_PROXY` 和 `HTTPS_PROXY` 变量
 
-
 ## 编写模型加载器配置
 
 在 `configs` 文件夹下新建 `models.yml`，用于存储模型加载器的配置。
@@ -71,11 +69,11 @@
 对于不同的模型加载器，所需要的配置项都大不相同。但大体的格式都和以下的示例配置差不多
 
 ```yaml
-azure:  # 配置名称。唯一，可任取，不一定和模型加载器名称有关联
-  loader: Azure  # 模型加载器名称。对应的是 `muicebot/llm` 下的 `.py` 文件。通常模型加载器的首字母都是大写
-  model_name: DeepSeek-R1  # 模型名称（可选，默认为 DeepSeek-R1）
-  template: Muice  # 人设提示词 Jinja2 模板名称（不用带文件后缀）
-  api_key: ghp_xxxxxxxxxxxxxxxxx  # GitHub Token（若配置了环境变量，此项不填）
+azure: # 配置名称。唯一，可任取，不一定和模型加载器名称有关联
+  loader: Azure # 模型加载器名称。对应的是 `muicebot/llm` 下的 `.py` 文件。通常模型加载器的首字母都是大写
+  model_name: DeepSeek-R1 # 模型名称（可选，默认为 DeepSeek-R1）
+  template: Muice # 人设提示词 Jinja2 模板名称（不用带文件后缀）
+  api_key: ghp_xxxxxxxxxxxxxxxxx # GitHub Token（若配置了环境变量，此项不填）
   stream: true # 流式对话
   multimodal: false # 是否启用多模态（可选。注意：使用的模型必须是多模态的）
   function_call: true # 是否启用工具调用（可选。需要编写 function call 插件并启用）
@@ -97,7 +95,7 @@ dashscope:
   api_key: sk-xxxxxxxxxxxxxxxxxxxxxxx # API 密钥（必须）
   max_tokens: 1024 # 模型生成的最大 token 数（可选，默认为 1024）
   temperature: 0.7 #  模型生成的温度参数（可选，默认为 0.7）
-  system_prompt: 现在开始你是一个名为的“沐雪”的AI女孩子   # 系统提示（可选）
+  system_prompt: 现在开始你是一个名为的“沐雪”的AI女孩子 # 系统提示（可选）
   auto_system_prompt: true # 自动配置沐雪的系统提示（默认为 false）
   repetition_penalty: 1.2
 
@@ -106,7 +104,7 @@ azure:
   model_name: DeepSeek-R1 # 模型名称（可选，默认为 DeepSeek-R1）
   template: Muice # 人设提示词 Jinja2 模板名称（不用带文件后缀）
   token: ghp_xxxxxxxxxxxxxxxxx # GitHub Token（若配置了环境变量，此项不填）
-  system_prompt: '我们来玩一个角色扮演的小游戏吧，现在开始你是一个名为的“沐雪”的AI女孩子，用猫娘的语气和我说话。' # 系统提示（可选）
+  system_prompt: "我们来玩一个角色扮演的小游戏吧，现在开始你是一个名为的“沐雪”的AI女孩子，用猫娘的语气和我说话。" # 系统提示（可选）
   auto_system_prompt: true # 自动配置沐雪的系统提示（默认为 false）
 ```
 
@@ -134,10 +132,9 @@ template_mode: system # 模板嵌入模式: `system` 为嵌入到系统提示; `
 
 关于人设文件的具体写法，请参考 [人设模板的撰写](/develop/template)
 
-
 ## 模型加载器配置项一览
 
-对于每一个模型加载器，他们需要或支持的模型配置都不尽相同。本页面将向您展示目前 MuiceBot 所有的模型加载器类所需要的不同配置。你也可以从 [_types.py](https://github.com/Moemu/MuiceBot/blob/main/Muice/llm/_types.py) 中获取所有支持的模型配置项。
+对于每一个模型加载器，他们需要或支持的模型配置都不尽相同。本页面将向您展示目前 MuiceBot 所有的模型加载器类所需要的不同配置。你也可以从 [\_types.py](https://github.com/Moemu/MuiceBot/blob/main/Muice/llm/_types.py) 中获取所有支持的模型配置项。
 
 ### Azure (Github Models)
 

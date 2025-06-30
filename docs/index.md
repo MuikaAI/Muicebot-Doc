@@ -14,13 +14,13 @@ hero:
       link: /guide/setup
 
 features:
-  - title: 'NB 内核驱动'
+  - title: "NB 内核驱动"
     details: 基于 NoneBot2 和多种适配器实现，提供了稳健的机器人运行服务
     icon: 🎖️
-  - title: '多种模型加载器'
+  - title: "多种模型加载器"
     details: 轻松运行本地模型和在线服务，比如 DeepSeek-R1
     icon: 🚀
-  - title: 'MCP Client 实现'
+  - title: "MCP Client 实现"
     details: 支持调用 MCP Server 中的工具
     icon: 📃
 ---

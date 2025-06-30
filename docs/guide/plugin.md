@@ -33,7 +33,6 @@ Muicebot 的插件索引库为 [MuikaAI/Muicebot-Plugins-Index](https://github.c
 
 > .store install picstatus
 
-
 ### 内嵌插件
 
 Muicebot 内嵌了一系列插件优化对话体验(`builtin_plugins`)，而无意实现其他额外功能。
@@ -46,31 +45,29 @@ ENABLE_BUILTIN_PLUGINS=False
 
 以下是所有内嵌插件的列表及它们所实现的功能。
 
-| 插件名                | 功能                                                         |
-| --------------------- | ------------------------------------------------------------ |
-| muicebot_plugin_store | 可以从 Muicebot 插件索引库中安装、更新插件                   |
-| access_control        | 提供黑白名单机制                                             |
-| get_current_time      | Function Call插件: 用于获取当前时间                          |
+| 插件名                | 功能                                                            |
+| --------------------- | --------------------------------------------------------------- |
+| muicebot_plugin_store | 可以从 Muicebot 插件索引库中安装、更新插件                      |
+| access_control        | 提供黑白名单机制                                                |
+| get_current_time      | Function Call插件: 用于获取当前时间                             |
 | ~~get_username~~      | Function Call插件: 获取当前用户名（即将弃用，建议使用人设模板） |
-| thought_processor     | Hook插件: 能够提取思考模型的思考过程和思考结果               |
+| thought_processor     | Hook插件: 能够提取思考模型的思考过程和思考结果                  |
 
 部分内嵌插件存在可选配置：
 
 - muicebot_plugin_store:
-
-    - `STORE_INDEX`
-        说明: 商店索引文件获取位置，当网络受限时你可修改此选项
-        默认值: `"https://raw.githubusercontent.com/MuikaAI/Muicebot-Plugins-Index/refs/heads/main/plugins.json"`
+  - `STORE_INDEX`
+    说明: 商店索引文件获取位置，当网络受限时你可修改此选项
+    默认值: `"https://raw.githubusercontent.com/MuikaAI/Muicebot-Plugins-Index/refs/heads/main/plugins.json"`
 
 - access_control:
-
-    - `access_control__whitelist`
-        说明: 白名单列表。当白名单列表为空时不启用。只能设置群聊ID
-        默认值: []
-    - `access_control__blacklist`
-        说明: 黑名单列表。无论是否为空都默认启用黑名单，除非白名单不为空。能同时设置用户和群聊ID
-        默认值: []
+  - `access_control__whitelist`
+    说明: 白名单列表。当白名单列表为空时不启用。只能设置群聊ID
+    默认值: []
+  - `access_control__blacklist`
+    说明: 黑名单列表。无论是否为空都默认启用黑名单，除非白名单不为空。能同时设置用户和群聊ID
+    默认值: []
 
 - thought_processor:
 
-    *参考全局配置项*
+  _参考全局配置项_

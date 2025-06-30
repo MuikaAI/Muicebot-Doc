@@ -60,8 +60,7 @@ data_dir = get_plugin_data_dir()
 
 ### 获取数据库会话(nonebot_plugin_orm)
 
-*参见[开发者指南](https://nonebot.dev/docs/best-practice/database/developer/)*
-
+_参见[开发者指南](https://nonebot.dev/docs/best-practice/database/developer/)_
 
 ## 插件信息
 

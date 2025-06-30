@@ -34,7 +34,6 @@ nb orm upgrade
 
 此节和迁移插件将于 Muicebot `1.3` 废弃
 
-
 ## 从 Muice-Chatbot 迁移
 
 目前我们已经停止对 Muice-Chatbot 的迁移支持，如果你仍然想从 Muice-Chatbot 中迁移数据，请参见: [文档站存档](https://github.com/MuikaAI/Muicebot-Doc/blob/c2c279294aa200cd9f800f8a053b1ab05d53e3fd/docs/guide/migrations.md) 并将 Muicebot 降级到 0.1.x 然后再逐级更新到 0.2.0, 0.3.0, 0.4.3

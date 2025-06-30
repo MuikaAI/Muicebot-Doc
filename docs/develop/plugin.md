@@ -38,10 +38,9 @@ async def get_weather(location: str) -> str:
 - 通过 `muicebot.plugin.PluginMetadata` 撰写插件元数据
 
 - 通过 `@on_function_call` 装饰器注册可供 AI 直接调用的 `function_call` 函数。这里我们需要填写两个参数：
+  - `description` 函数描述。这个字段会被传入到模型加载器的 `tools` 列表，来给 AI 决定何时调用
 
-    - `description` 函数描述。这个字段会被传入到模型加载器的 `tools` 列表，来给 AI 决定何时调用
-
-    - 通过装饰器的 `params` 参数定义工具参数模型（可选）
+  - 通过装饰器的 `params` 参数定义工具参数模型（可选）
 
 - **十分建议** 使用异步函数作为被修饰函数，无论是否有异步调用
 

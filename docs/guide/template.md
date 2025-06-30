@@ -94,7 +94,6 @@ userinfos:
 
 配置类: [PromptTemplatesConfig](https://github.com/Moemu/MuiceBot/blob/main/muicebot/templates/model.py#L17C7-L17C28) 当然也支持别的自定义变量
 
-
 ## 模板存放位置
 
 1. 用户自定义模板: bot 目录下的 `./templates` 文件夹
@@ -102,7 +101,6 @@ userinfos:
 2. MuiceBot 内嵌模板: `muicebot/builtin_templates`
 
 目前，内嵌的模板文件只有 `Muice` ，我们也欢迎您贡献出更多优质的模板给大家使用！
-
 
 ## 相关配置
 
@@ -115,6 +113,6 @@ default_template=Muice # 全局使用 Muice 人设模板
 模型配置(models.yml):
 
 ```yaml
-template: Muice        # 使用的人设模板
-template_mode: system  # 模板嵌入模式: `system` 为嵌入到系统提示; `user` 为嵌入到用户提示中
+template: Muice # 使用的人设模板
+template_mode: system # 模板嵌入模式: `system` 为嵌入到系统提示; `user` 为嵌入到用户提示中
 ```

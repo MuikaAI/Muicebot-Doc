@@ -27,7 +27,7 @@ morning:
     hour: 8
     minute: 30
   ask: <日常问候：早上>
-  target: '123456789'  # 私聊（目标用户ID）
+  target: "123456789" # 私聊（目标用户ID）
 
 afternoon:
   trigger: cron
@@ -35,7 +35,7 @@ afternoon:
     hour: 12
     minute: 30
   say: 中午好呀各位~吃饭了没有？
-  target: '1234567890123'  # 群聊（目标群聊ID）
+  target: "1234567890123" # 群聊（目标群聊ID）
 
 auto_create_topic:
   trigger: interval
@@ -43,7 +43,7 @@ auto_create_topic:
     minutes: 30
   random: 1
   ask: "<生成推文: 胡思乱想>"
-  target: '1234567890123'
+  target: "1234567890123"
 ```
 
 以上的配置文件定义了三个定时任务配置，以 `afternoon` 定时任务为例，它将在每一天的 12:30 向目标为 1234567890123 的用户或群组发送 "中午好呀各位~吃饭了没有？"
