@@ -2,7 +2,7 @@
 
 ## 模型加载器信息
 
-在 Muicebot 中，每一个可用于与 LLM 进行交互的实例被称为模型加载器，这些模型加载器存放于代码目录中的 `muicebot.llm` 文件夹下，并通常以首字母大写的形式命名以便于 SDK 区分。
+在 Muicebot 中，每一个可用于与 LLM 进行交互的实例被称为模型加载器（也叫做模型服务提供者），这些模型加载器存放于代码目录中的 `muicebot.llm` 文件夹下，并通常以首字母大写的形式命名以便于 SDK 区分。
 
 每个模型加载器都继承于模型基类 `BasicModel` 并统一使用 `ModelConfig` 获取配置项，但由于 SDK 实现情况，每个模型加载器所需要的配置项和实现的功能都不尽相同。
 
@@ -22,7 +22,7 @@
 
 对于不同的加载器，可能需要额外的依赖，请根据报错提示安装。
 
-有关各个模型加载器的配置，参见 [模型加载器配置](/model/configuration.md)
+有关各个模型加载器的配置，参见 [模型加载器配置](#模型加载器配置项一览)
 
 ### 加载器功能支持列表
 
@@ -70,7 +70,7 @@
 
 ```yaml
 azure: # 配置名称。唯一，可任取，不一定和模型加载器名称有关联
-  loader: Azure # 模型加载器名称。对应的是 `muicebot/llm` 下的 `.py` 文件。通常模型加载器的首字母都是大写
+  provider: Azure # 模型加载器名称。对应的是 `muicebot/llm` 下的 `.py` 文件。通常模型加载器的首字母都是大写
   model_name: DeepSeek-R1 # 模型名称（可选，默认为 DeepSeek-R1）
   template: Muice # 人设提示词 Jinja2 模板名称（不用带文件后缀）
   api_key: ghp_xxxxxxxxxxxxxxxxx # GitHub Token（若配置了环境变量，此项不填）
@@ -81,13 +81,13 @@ azure: # 配置名称。唯一，可任取，不一定和模型加载器名称�
 
 以上给出了 Azure 模型加载器的一个示例配置，您可以在接下来的 [模型加载器配置项一览](#模型加载器配置项一览) 一节中获取这些模型加载器分别支持的配置。
 
-如果你不知道这些配置中哪些是必须的，那么你可以先填写一个 `loader` 配置，模型加载器初始化时会抛出错误并提示您
+如果你不知道这些配置中哪些是必须的，那么你可以先填写一个 `provider` 配置，模型加载器初始化时会抛出错误并提示您
 
 我们支持多个模型配置，并可在聊天中通过指令动态切换，例如：
 
 ```yaml
 dashscope:
-  loader: Dashscope # 使用 dashscope 加载器
+  provider: Dashscope # 使用 dashscope 加载器
   default: true # 默认配置文件
   template: Muice # 人设提示词 Jinja2 模板名称（不用带文件后缀）
   multimodal: true # 是否启用多模态（可选，注意：使用的模型必须是多模态的）
@@ -100,7 +100,7 @@ dashscope:
   repetition_penalty: 1.2
 
 azure:
-  loader: Azure # 使用 azure 加载器
+  provider: Azure # 使用 azure 加载器
   model_name: DeepSeek-R1 # 模型名称（可选，默认为 DeepSeek-R1）
   template: Muice # 人设提示词 Jinja2 模板名称（不用带文件后缀）
   token: ghp_xxxxxxxxxxxxxxxxx # GitHub Token（若配置了环境变量，此项不填）
@@ -121,7 +121,7 @@ azure:
 下面的配置项是每一个模型加载器都共有的，并且发挥着重要的功能：
 
 ```yaml
-loader: Openai # 模型加载器名称，这些模型加载器位于插件目录下的 llm 文件夹中，并初始化同名文件的同名类，如果不存在则报错。注意，每个模型加载器因为兼容问题，开头首字母都是大写的
+provider: openai # 模型加载器名称，这些模型加载器位于插件目录下的 llm/providers 文件夹中，并初始化同名文件的同名类，如果不存在则报错。
 multimodal: true # 多模态支持。设置为 true 将处理多模态事件。如果调用的模型不是多模态模型忽略这些多模态消息
 
 template: Muice # 人设提示词 Jinja2 模板，模板文件需要存放在 `./templates` 文件夹下。Muice为内嵌模板。默认值为空或全局默认值
@@ -139,7 +139,7 @@ template_mode: system # 模板嵌入模式: `system` 为嵌入到系统提示; `
 ### Azure (Github Models)
 
 ```yaml
-loader: Azure # 使用 Azure 加载器（必填）
+provider: Azure # 使用 Azure 加载器（必填）
 model_name: DeepSeek-R1 # 模型名称（必填）
 api_key: <your-github-token-goes-here> # GitHub Token 或 Azure Key（必填）
 template: Muice # 使用的模板名称（可选，无默认值）
@@ -156,7 +156,7 @@ function_call: false # 是否启用工具调用（可选。需要编写 function
 ### Dashscope (阿里百炼大模型平台)
 
 ```yaml
-loader: Dashscope # 使用 Dashscope 加载器（必须）
+provider: Dashscope # 使用 Dashscope 加载器（必须）
 model_name: qwen-max # 模型名称（必须）
 template: Muice # 使用的模板名称（可选，无默认值）
 multimodal: false # 是否启用多模态（可选。注意：使用的模型必须是多模态的）
@@ -174,7 +174,7 @@ content_security: false # 内容安全（可选。需要开通内容审核服务
 ### Gemini (Google)
 
 ```yaml
-loader: Gemini # 使用 Dashscope 加载器（必须）
+provider: Gemini # 使用 Dashscope 加载器（必须）
 model_name: gemini-2.0-flash # 模型名称（必须）
 template: Muice # 使用的模板名称（可选，无默认值）
 multimodal: false # 是否启用多模态（可选。注意：使用的模型必须是多模态的）
@@ -195,7 +195,7 @@ content_security: false # 内容安全（可选。默认为中级及以上）
 ### Ollama
 
 ```yaml
-loader: Ollama # 使用 Ollama 加载器（必填）
+provider: Ollama # 使用 Ollama 加载器（必填）
 model_name: deepseek-r1 # ollama 模型名称（必填）
 template: Muice # 使用的模板名称（可选，无默认值）
 api_host: http://localhost:11434 # ollama 客户端端口（可选）
@@ -213,7 +213,7 @@ function_call: false # 是否启用工具调用（可选。需要编写 function
 ### Openai (支持 DeepSeek 官方 API 调用)
 
 ```yaml
-loader: Openai # 使用 openai 加载器（必填）
+provider: Openai # 使用 openai 加载器（必填）
 model_name: text-davinci-003 # 模型名称（必填）
 template: Muice # 使用的模板名称（可选，无默认值）
 api_key: xxxxxx # API 密钥（必须）

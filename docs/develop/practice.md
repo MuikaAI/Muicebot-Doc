@@ -162,9 +162,11 @@ if isinstance(response, ModelCompletions):
 # 如果是流式调用
 else:
     response_chunks: list[str] = []
+    response_usage = -1
+    response_status = True
     async for chunk in response:
         response_chunks.append(chunk.chunk)
-        response_usage = chunk.usage or chunk.usage
+        response_usage = chunk.usage if chunk.usage > response_usage else response_usage
         response_status = chunk.succeed if not chunk.succeed else response_status
     # 拼接流式响应
     response_text = "".join(response_chunks)
@@ -193,4 +195,39 @@ def process_message(message: str) -> str:
     result = thoughts_pattern.sub("", message).strip()
 
     return result
+```
+
+### 获取文本嵌入信息
+
+```python
+from muicebot.config import get_embedding_model_config
+from muicebot.llm import load_embedding_model
+from async_lru import alru_cache
+
+# 请注意，由于 `embedding_model_config` 对于用户而言是可选的
+# 当配置文件不存在/为空时，会抛出 `FileNotFoundError`
+embedding_model = load_embedding_model(get_embedding_model_config())
+
+@alru_cache(maxsize=1024)
+async def _get_embedding(self, text: str) -> ndarray:
+    """
+    调用 OpenAI API 兼容端口获取字符串的嵌入向量，支持离线缓存
+
+    :param text: 要查询的字符串
+    """
+    logger.debug(f"正在查询文本嵌入向量: {text[:50]}...")
+
+    # 缓存未命中，调用 API
+    start_time = perf_counter()
+    try:
+        response = await embedding_model.embed([text])
+        embedding = np.array(response.embeddings[0])
+
+        end_time = perf_counter()
+        logger.debug(f"已完成查询，用时: {end_time - start_time}s")
+        return embedding
+
+    except Exception as e:
+        logger.error(f"获取嵌入向量失败: {e}")
+        raise
 ```
