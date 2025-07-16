@@ -19,8 +19,8 @@
 | [Azure](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Azure.py)         | 可调用 [GitHub Marketplace ](https://github.com/marketplace/models)中的在线模型 | [Github MarketPlace](https://github.com/marketplace?type=models)           |
 | [Dashscope](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Dashscope.py) | 可调用阿里云百炼平台的在线模型                                                  | [官方文档](https://help.aliyun.com/zh/model-studio/getting-started/models) |
 | [Gemini](https://aistudio.google.com/)                                          | 使用 Gemini Python SDK 访问 Google Gemini 服务中的模型                          | [模型列表](https://ai.google.dev/gemini-api/docs/models?hl=zh-cn)          |
-| [Ollama](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Ollama.py)       | 使用 Ollama Python SDK 访问 Ollama 接口，需要提前启动 Ollama 服务器                   | [模型列表](https://ollama.com/search)                                      |
-| [Openai](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Openai.py)       | 可调用 OpenAI API 格式的接口                             | _any_                                                                      |
+| [Ollama](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Ollama.py)       | 使用 Ollama Python SDK 访问 Ollama 接口，需要提前启动 Ollama 服务器             | [模型列表](https://ollama.com/search)                                      |
+| [Openai](https://github.com/Moemu/MuiceBot/tree/main/Muice/llm/Openai.py)       | 可调用 OpenAI API 格式的接口                                                    | _any_                                                                      |
 
 对于不同的加载器，可能需要额外的依赖，请根据报错提示安装。
 
@@ -33,13 +33,13 @@
 对于不同的模型加载器，所需要的配置项都大体相似。以下示例列出了所有支持的配置项。
 
 ```yaml
-default:  # 配置名称。唯一，可任取，不一定和模型加载器名称有关联
-  provider: openai  # 模型加载器名称。对应的是 `muicebot/llm/providers` 下的 `.py` 文件。
-  default: true  # 是否默认
-  model: "text-embedding-v4"  # 嵌入模型名称
-  api_key: sk-xxxxxxxxxxxxxxxxxxx  # 在线服务的 api key
-  api_secret: 0d000721Onanie  # 在线服务的 api secret(对于 Openai 来说可忽略)
-  api_host: "https://dashscope.aliyuncs.com/compatible-mode/v1"  # base_url
+default: # 配置名称。唯一，可任取，不一定和模型加载器名称有关联
+  provider: openai # 模型加载器名称。对应的是 `muicebot/llm/providers` 下的 `.py` 文件。
+  default: true # 是否默认
+  model: "text-embedding-v4" # 嵌入模型名称
+  api_key: sk-xxxxxxxxxxxxxxxxxxx # 在线服务的 api key
+  api_secret: 0d000721Onanie # 在线服务的 api secret(对于 Openai 来说可忽略)
+  api_host: "https://dashscope.aliyuncs.com/compatible-mode/v1" # base_url
 ```
 
 ## 关于嵌入信息的统一性
@@ -56,9 +56,9 @@ default:  # 配置名称。唯一，可任取，不一定和模型加载器名�
 
 ```json
 {
-    "provider": "<模型提供者类名>",
-    "api_host": "<self.config.api_host>",
-    "model": "<self.config.model>",
-    "text_hash": "<文本的 sha256 内容>",
+  "provider": "<模型提供者类名>",
+  "api_host": "<self.config.api_host>",
+  "model": "<self.config.model>",
+  "text_hash": "<文本的 sha256 内容>"
 }
 ```
