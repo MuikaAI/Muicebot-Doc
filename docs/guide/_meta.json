@@ -53,5 +53,10 @@
         "type": "file",
         "name": "migrations",
         "label": "更新指南"
+    },
+    {
+        "type": "file",
+        "name": "selection",
+        "label": "模型选型指南"
     }
 ]
