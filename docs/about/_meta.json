@@ -18,5 +18,10 @@
         "type": "file",
         "name": "Muika",
         "label": "关于沐妮卡"
+    },
+    {
+        "type": "file",
+        "name": "Rikka",
+        "label": "关于六花"
     }
 ]
