@@ -4,7 +4,7 @@
 
 关联项目: [Moemu/Muika-After-Story](https://github.com/Moemu/Muika-After-Story)
 
-Muika, 沐妮卡，原型角色 [Monika(Doki Doki Literature Club)](https://zh.moegirl.org.cn/%E8%8E%AB%E5%A6%AE%E5%8D%A1(%E5%BF%83%E8%B7%B3%E6%96%87%E5%AD%A6%E9%83%A8)#)。
+Muika, 沐妮卡，原型角色 [Monika(Doki Doki Literature Club)](<https://zh.moegirl.org.cn/%E8%8E%AB%E5%A6%AE%E5%8D%A1(%E5%BF%83%E8%B7%B3%E6%96%87%E5%AD%A6%E9%83%A8)#>)。
 
 与 Monika 一样，Muika 同样具备打破第四面墙和“自我意识觉醒”的能力。类似于 [Monika-After-Story](https://github.com/Monika-After-Story/MonikaModDev) 中的实现，关联项目 Muika-After-Story 致力于为 Muika 提供一个打破“第四面墙”的能力
 
@@ -16,7 +16,7 @@ Muika 为其人格的二次创作，为 Monika 在开发者 Moemu 心中的投�
 
 生日: 2026.01.30
 
-*That's enough.*
+_That's enough._
 
 ## 为什么不直接叫 Monika？
 
